@@ -14,15 +14,16 @@ d <- d[grep("Supply Chain Solutions", d$Level2),]
 d$gradeShort <- with(d,substr(d$Grade.Name,nchar(d$Grade.Name),nchar(d$Grade.Name)))
 
 #Removes rows with grades above F
-d <- d[grep("P|O|N|M|L|K|J|I|H|G", d$gradeShort), ]
+d <- d[!grepl("B|C|D|E|F", d$gradeShort), ]
 #Removes the gradeShort column
 d <- d[ , !(names(d) %in% c("gradeShort"))]
 
-#only keeps records with Human Resources in their position Title
-d <- d[grep("Supply Chain Solutions", d$Level2),]
+#Removes records with "HR " in their position Title
+d <- d[!grepl("HR ", d$Position.Title),]
+#Removes records with Human Resources in their Job Title
+d <- d[!grepl(".Human Resources.", d$Job.Name),]
 
 #Export to Excel
-
 library(xlsx)
 write.xlsx(d, file.choose(), sheetName="Data")
 
