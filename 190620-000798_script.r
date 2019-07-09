@@ -93,10 +93,10 @@ d2 <- unique(d2)
 d2$Management.Unit <- NA
 
 #Rename column headers
-names(d2)[0] <- "Region where they have direct reports"
-names(d2)[1] <- "Employee Name"
-names(d2)[2] <- "Employee Number"
-names(d2)[3] <- "Management Unit"
+names(d2)[1] <- "Region where they have direct reports"
+names(d2)[2] <- "Employee Name"
+names(d2)[3] <- "Employee Number"
+names(d2)[4] <- "Management Unit"
 
 #Export to Excel
 write.xlsx(d2, file.choose(), sheetName="With Direct Reports", append=TRUE,row.names="FALSE")
