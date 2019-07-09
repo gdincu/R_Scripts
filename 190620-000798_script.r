@@ -90,13 +90,13 @@ d2 <- d2[ , (names(d2) %in% c("Region","Supervisor","Supervisor.Number"))]
 d2 <- unique(d2)
 
 #Adding a blank Mgt Unit column
-df$Management.Unit <- NA
+d2$Management.Unit <- NA
 
 #Rename column headers
-names(d)[0] <- "Region where they have direct reports"
-names(d)[1] <- "Employee Name"
-names(d)[2] <- "Employee Number"
-names(d)[2] <- "Management Unit"
+names(d2)[0] <- "Region where they have direct reports"
+names(d2)[1] <- "Employee Name"
+names(d2)[2] <- "Employee Number"
+names(d2)[2] <- "Management Unit"
 
 #Export to Excel
 write.xlsx(d2, file.choose(), sheetName="With Direct Reports", append=TRUE,row.names="FALSE")
