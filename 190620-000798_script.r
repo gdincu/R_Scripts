@@ -64,7 +64,10 @@ names(d)[4] <- "Management Unit"
 
 #Export to Excel
 library(xlsx)
-write.xlsx(d, file.choose(), sheetName="All Employees",row.names=FALSE,password="PS999201")
+write.xlsx(d, file.choose(), sheetName="All Employees",row.names="FALSE")
+
+#Delete the current dataframe
+rm(list=ls())
 
 #####################################################################################
 #2nd Report - All people in the business with direct Reports 
@@ -86,8 +89,17 @@ d2 <- d2[ , (names(d2) %in% c("Region","Supervisor","Supervisor.Number"))]
 #Only keeps unique entries
 d2 <- unique(d2)
 
+#Adding a blank Mgt Unit column
+df$Management.Unit <- NA
+
+#Rename column headers
+names(d)[0] <- "Region where they have direct reports"
+names(d)[1] <- "Employee Name"
+names(d)[2] <- "Employee Number"
+names(d)[2] <- "Management Unit"
+
 #Export to Excel
-write.xlsx(d2, file.choose(), sheetName="With Direct Reports", append=TRUE, row.names=FALSE)
+write.xlsx(d2, file.choose(), sheetName="With Direct Reports", append=TRUE,row.names="FALSE")
 
 #####################################################################################
 #Delete all current variables
