@@ -1,5 +1,7 @@
+#####################################################################################
 #1st Report - All people in the business with the following headings: 
 #Employee Full Name, Employee Number, Job Category, Management Unit
+#####################################################################################
 
 #import data from CSV file
 d <- read.csv(file.choose() , header = T, sep = ",", stringsAsFactors = F)
@@ -63,7 +65,31 @@ names(d)[4] <- "Management Unit"
 #Export to Excel
 library(xlsx)
 write.xlsx(d, file.choose(), sheetName="All Employees",row.names=FALSE,password="PS999201")
-write.xlsx(d2, file.choose(), sheetName="sheet2", append=TRUE, row.names=FALSE)
 
+#####################################################################################
+#2nd Report - All people in the business with direct Reports 
+#Region where they have direct reports,Employee Name,Employee Number,Management Unit
+#####################################################################################
+
+#import data from CSV file
+d2 <- read.csv(file.choose() , header = T, sep = ",", stringsAsFactors = F)
+
+#Only keep 3 columns
+d2 <- d2[ , (names(d) %in% c("Level0","Supervisor","Supervisor.Number"))]
+
+#Adds an extra row with the Region
+d2$Region <- with(d2,substr(d2$Level0,0,2))
+#Removes the Level0 column
+d2 <- d2[ , !(names(d2) %in% c("Level0"))]
+#Removes the 'count' column
+d2 <- d2[ , (names(d2) %in% c("Region","Supervisor","Supervisor.Number"))]
+#Only keeps unique entries
+d2 <- unique(d2)
+
+#Export to Excel
+write.xlsx(d2, file.choose(), sheetName="With Direct Reports", append=TRUE, row.names=FALSE)
+
+#####################################################################################
 #Delete all current variables
 rm(list=ls())
+#####################################################################################
