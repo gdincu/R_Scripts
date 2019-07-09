@@ -63,6 +63,7 @@ names(d)[4] <- "Management Unit"
 #Export to Excel
 library(xlsx)
 write.xlsx(d, file.choose(), sheetName="All Employees",row.names=FALSE)
+write.xlsx(d2, file.choose(), sheetName="sheet2", append=TRUE, row.names=FALSE)
 
 #Delete all current variables
 rm(list=ls())
